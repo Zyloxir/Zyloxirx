@@ -3,7 +3,441 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Zyloxir — Websites & Digital Businesses</title><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Zyloxir — Websites & Digital Businesses</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Syne:wght@300;400;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --black: #030508;
+    --dark: #080d14;
+    --dark2: #0d1520;
+    --blue: #1a4fff;
+    --blue-bright: #2d6cff;
+    --blue-glow: #1a4fff55;
+    --blue-faint: #1a4fff15;
+    --grey: #8a9ab5;
+    --light: #c8d5ee;
+    --white: #e8eeff;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: 'Syne', sans-serif; overflow-x: hidden; }
+
+  body::after {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 9000; opacity: 0.4;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 60px;
+    background: linear-gradient(to bottom, #030508ee, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #1a4fff18;
+  }
+  .nav-logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.3rem; color: var(--white); letter-spacing: 0.15em; text-decoration: none; }
+  .nav-logo span { color: var(--blue-bright); }
+  .nav-links { display: flex; gap: 40px; }
+  .nav-links a { color: var(--grey); text-decoration: none; font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; transition: color 0.2s; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1.5px; background: var(--blue-bright); transition: width 0.25s; }
+  .nav-links a:hover { color: var(--white); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 120px 60px 80px; position: relative; overflow: hidden; }
+  #hero::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: linear-gradient(var(--blue-faint) 1px, transparent 1px), linear-gradient(90deg, var(--blue-faint) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+  .glow-orb { position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, #1a4fff22 0%, transparent 70%); border-radius: 50%; top: 50%; left: 55%; transform: translate(-50%, -50%); animation: pulse 6s ease-in-out infinite; pointer-events: none; }
+  @keyframes pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; } 50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; } }
+
+  .hero-tag { font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--blue-bright); font-weight: 600; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; animation: fadeUp 0.8s 0.2s both; }
+  .hero-tag::before { content: ''; width: 32px; height: 1.5px; background: var(--blue-bright); }
+  .hero-name { font-family: 'Orbitron', monospace; font-size: clamp(3.5rem, 10vw, 8rem); font-weight: 900; line-height: 0.95; letter-spacing: -0.02em; color: var(--white); animation: fadeUp 0.8s 0.4s both; position: relative; display: inline-block; }
+  .hero-name .accent { color: var(--blue-bright); position: relative; }
+  .hero-name .accent::after { content: attr(data-text); position: absolute; inset: 0; color: var(--blue-bright); filter: blur(18px); opacity: 0.5; pointer-events: none; }
+  .hero-sub { font-size: clamp(0.95rem, 2vw, 1.2rem); color: var(--grey); font-weight: 300; max-width: 480px; line-height: 1.7; margin-top: 28px; animation: fadeUp 0.8s 0.6s both; }
+  .hero-ctas { display: flex; gap: 16px; margin-top: 48px; flex-wrap: wrap; animation: fadeUp 0.8s 0.8s both; }
+  .hero-stats { display: flex; gap: 60px; margin-top: 80px; flex-wrap: wrap; animation: fadeUp 0.8s 1s both; }
+  .stat-item { display: flex; flex-direction: column; gap: 4px; }
+  .stat-num { font-family: 'Orbitron', monospace; font-size: 2rem; font-weight: 700; color: var(--white); }
+  .stat-num span { color: var(--blue-bright); }
+  .stat-label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+  .btn-primary { padding: 14px 36px; background: var(--blue); color: var(--white); border: none; font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; cursor: pointer; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); transition: background 0.2s, box-shadow 0.2s; display: inline-block; }
+  .btn-primary:hover { background: var(--blue-bright); box-shadow: 0 0 30px var(--blue-glow); }
+  .btn-secondary { padding: 14px 36px; background: transparent; color: var(--light); border: 1px solid #1a4fff44; font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; cursor: pointer; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); transition: border-color 0.2s, color 0.2s; display: inline-block; }
+  .btn-secondary:hover { border-color: var(--blue); color: var(--white); }
+
+  /* SECTIONS */
+  section { padding: 120px 60px; position: relative; }
+  .section-label { font-size: 0.72rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--blue-bright); font-weight: 600; display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .section-label::before { content: '//'; opacity: 0.5; }
+  .section-title { font-family: 'Orbitron', monospace; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.1; color: var(--white); margin-bottom: 60px; }
+  .section-title span { color: var(--blue-bright); }
+
+  /* SERVICES */
+  #services { background: var(--dark); border-top: 1px solid #1a4fff33; }
+  .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2px; }
+  .service-card { background: var(--dark2); padding: 40px 36px; position: relative; overflow: hidden; transition: transform 0.3s, border-color 0.3s; border: 1px solid #1a4fff10; }
+  .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--blue-bright); transition: height 0.35s; }
+  .service-card:hover::before { height: 100%; }
+  .service-card:hover { transform: translateY(-4px); border-color: #1a4fff30; }
+  .service-num { font-family: 'Orbitron', monospace; font-size: 0.7rem; color: var(--blue-bright); letter-spacing: 0.2em; margin-bottom: 20px; opacity: 0.7; }
+  .service-icon { font-size: 2rem; margin-bottom: 20px; display: block; }
+  .service-name { font-family: 'Orbitron', monospace; font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 12px; letter-spacing: 0.05em; }
+  .service-desc { font-size: 0.875rem; line-height: 1.7; color: var(--grey); font-weight: 300; }
+  .service-card .arrow { position: absolute; bottom: 24px; right: 28px; color: var(--blue); opacity: 0; font-size: 1.2rem; transition: opacity 0.3s, transform 0.3s; }
+  .service-card:hover .arrow { opacity: 1; transform: translateX(4px); }
+
+  /* PORTFOLIO */
+  #portfolio { background: var(--black); }
+  .portfolio-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+  .portfolio-item { position: relative; overflow: hidden; background: var(--dark2); border: 1px solid #1a4fff0a; min-height: 220px; display: flex; flex-direction: column; justify-content: flex-end; padding: 32px; cursor: pointer; transition: border-color 0.3s; }
+  .portfolio-item:first-child { grid-column: span 2; min-height: 280px; }
+  .portfolio-item:hover { border-color: #1a4fff30; }
+  .portfolio-item::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, #030508ee, #1a4fff11 60%, transparent); z-index: 1; }
+  .portfolio-bg { position: absolute; inset: 0; z-index: 0; display: flex; align-items: center; justify-content: center; font-size: 6rem; opacity: 0.06; transition: opacity 0.3s, transform 0.4s; }
+  .portfolio-item:hover .portfolio-bg { opacity: 0.12; transform: scale(1.05); }
+  .portfolio-content { position: relative; z-index: 2; }
+  .portfolio-tag { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--blue-bright); margin-bottom: 8px; font-weight: 600; }
+  .portfolio-name { font-family: 'Orbitron', monospace; font-size: 1.1rem; font-weight: 700; color: var(--white); }
+  .portfolio-desc { font-size: 0.82rem; color: var(--grey); margin-top: 6px; line-height: 1.6; }
+  .coming-soon { position: absolute; top: 20px; right: 20px; z-index: 3; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue-bright); border: 1px solid var(--blue); padding: 4px 10px; font-weight: 600; }
+
+  /* CONTACT */
+  #contact { background: var(--dark); border-top: 1px solid #1a4fff33; }
+  .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .contact-info p { font-size: 0.95rem; line-height: 1.8; color: var(--grey); font-weight: 300; margin-bottom: 40px; }
+  .contact-detail { display: flex; flex-direction: column; gap: 16px; }
+  .contact-item { display: flex; align-items: center; gap: 16px; padding: 16px 20px; border: 1px solid #1a4fff15; background: var(--dark2); }
+  .contact-item-icon { font-size: 1.2rem; }
+  .contact-item-text { font-size: 0.85rem; color: var(--light); font-weight: 400; }
+  .contact-item-label { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey); }
+  .contact-form { display: flex; flex-direction: column; gap: 16px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-label { font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--grey); font-weight: 600; }
+  .form-input, .form-textarea { background: var(--dark2); border: 1px solid #1a4fff20; color: var(--white); font-family: 'Syne', sans-serif; font-size: 0.9rem; padding: 14px 18px; outline: none; transition: border-color 0.2s; }
+  .form-input:focus, .form-textarea:focus { border-color: var(--blue); }
+  .form-textarea { resize: vertical; min-height: 130px; }
+  .form-input::placeholder, .form-textarea::placeholder { color: #3a4a65; }
+  .form-submit { padding: 16px 40px; background: var(--blue); color: var(--white); border: none; font-family: 'Syne', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; align-self: flex-start; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px)); transition: background 0.2s, box-shadow 0.2s; }
+  .form-submit:hover { background: var(--blue-bright); box-shadow: 0 0 30px var(--blue-glow); }
+  .form-msg { font-size: 0.82rem; color: var(--blue-bright); display: none; margin-top: 4px; }
+
+  /* FOOTER */
+  footer { padding: 40px 60px; border-top: 1px solid #1a4fff15; display: flex; align-items: center; justify-content: space-between; background: var(--black); }
+  .footer-logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1rem; letter-spacing: 0.15em; color: var(--white); text-decoration: none; }
+  .footer-logo span { color: var(--blue-bright); }
+  .footer-copy { font-size: 0.78rem; color: var(--grey); letter-spacing: 0.08em; }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a { font-size: 0.78rem; color: var(--grey); text-decoration: none; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--blue-bright); }
+
+  /* BRANDS */
+  #brands { background: var(--dark); border-top: 1px solid #1a4fff33; }
+  .brands-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .brand-card {
+    background: var(--dark2); padding: 48px 44px;
+    border: 1px solid #1a4fff15; position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .brand-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, #1a4fff08, transparent 60%);
+    pointer-events: none;
+  }
+  .brand-card:hover { border-color: #1a4fff40; transform: translateY(-4px); }
+  .brand-tag {
+    font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--blue-bright); font-weight: 600; margin-bottom: 20px;
+    display: inline-block; border: 1px solid #1a4fff33; padding: 4px 12px;
+  }
+  .brand-logo {
+    font-family: 'Orbitron', monospace; font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 900; color: var(--white); letter-spacing: 0.05em;
+    margin-bottom: 24px; line-height: 1;
+  }
+  .brand-logo span { color: var(--blue-bright); }
+  .brand-desc {
+    font-size: 0.9rem; line-height: 1.8; color: var(--grey);
+    font-weight: 300; margin-bottom: 28px;
+  }
+  .brand-services { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+  .brand-services span {
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--light); background: #1a4fff12;
+    border: 1px solid #1a4fff25; padding: 5px 12px; font-weight: 600;
+  }
+  .brand-cta {
+    font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--blue-bright); font-weight: 700; cursor: pointer;
+    transition: letter-spacing 0.2s;
+  }
+  .brand-card:hover .brand-cta { letter-spacing: 0.18em; }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--blue); border-radius: 2px; }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section, #hero { padding: 80px 24px; }
+    .brands-grid { grid-template-columns: 1fr; }
+    .portfolio-grid { grid-template-columns: 1fr; }
+    .portfolio-item:first-child { grid-column: span 1; }
+    .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+    .hero-stats { gap: 32px; }
+    footer { flex-direction: column; gap: 16px; text-align: center; }
+    .footer-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-logo">ZYL<span>O</span>XIR</a>
+  <div class="nav-links">
+    <a href="#services">Services</a>
+    <a href="#portfolio">Work</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="glow-orb"></div>
+  <div class="hero-tag">Available for projects worldwide</div>
+  <h1 class="hero-name">ZYL<span class="accent" data-text="OX">OX</span>IR</h1>
+  <p class="hero-sub">Building websites & digital businesses that dominate their market. From concept to launch — and beyond.</p>
+  <div class="hero-ctas">
+    <a href="#services" class="btn-primary">Explore Services</a>
+    <a href="#contact" class="btn-secondary">Let's Talk</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item">
+      <span class="stat-num">5<span>+</span></span>
+      <span class="stat-label">Services</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">∞</span>
+      <span class="stat-label">Ambition</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num">100<span>%</span></span>
+      <span class="stat-label">Committed</span>
+    </div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="section-label">What I Do</div>
+  <h2 class="section-title">Services &<br><span>Expertise</span></h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-num">01</div>
+      <span class="service-icon">🌐</span>
+      <div class="service-name">Digital Architecture</div>
+      <p class="service-desc">Custom, high-performance websites designed to convert. From landing pages to full business platforms — built to impress.</p>
+      <span class="arrow">→</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">02</div>
+      <span class="service-icon">📦</span>
+      <div class="service-name">Commerce Automation</div>
+      <p class="service-desc">End-to-end ecommerce store setup and strategy. Product research, store build, and launch — ready to scale.</p>
+      <span class="arrow">→</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">03</div>
+      <span class="service-icon">🏠</span>
+      <div class="service-name">Real Estate</div>
+      <p class="service-desc">Digital solutions for real estate — listings, lead generation, and professional property showcasing online.</p>
+      <span class="arrow">→</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">04</div>
+      <span class="service-icon">🎬</span>
+      <div class="service-name">Video Editing</div>
+      <p class="service-desc">Cinematic, high-retention edits for YouTube, Instagram Reels, ads, and brand content. Fast delivery.</p>
+      <span class="arrow">→</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">05</div>
+      <span class="service-icon">📈</span>
+      <div class="service-name">SMMA</div>
+      <p class="service-desc">Social media marketing and management that drives real growth. Content, ads, strategy — all handled.</p>
+      <span class="arrow">→</span>
+    </div>
+    <div class="service-card">
+      <div class="service-num">06</div>
+      <span class="service-icon">🛒</span>
+      <div class="service-name">Curated Imports</div>
+      <p class="service-desc">Premium imported products sourced globally and delivered locally. Exclusive goods you won't find anywhere else.</p>
+      <span class="arrow">→</span>
+    </div>
+  </div>
+</section>
+
+<section id="portfolio">
+  <div class="section-label">Projects</div>
+  <h2 class="section-title">Port<span>folio</span></h2>
+  <div class="portfolio-grid">
+    <div class="portfolio-item">
+      <div class="portfolio-bg">🌐</div>
+      <span class="coming-soon">Featured</span>
+      <div class="portfolio-content">
+        <div class="portfolio-tag">Website</div>
+        <div class="portfolio-name">Digital Agency Site</div>
+        <div class="portfolio-desc">Full business website with booking, services, and payment integration</div>
+      </div>
+    </div>
+    <div class="portfolio-item">
+      <div class="portfolio-bg">📦</div>
+      <span class="coming-soon">Live</span>
+      <div class="portfolio-content">
+        <div class="portfolio-tag">Ecommerce</div>
+        <div class="portfolio-name">Commerce Store</div>
+        <div class="portfolio-desc">High-converting product store built to scale</div>
+      </div>
+    </div>
+    <div class="portfolio-item">
+      <div class="portfolio-bg">🏠</div>
+      <span class="coming-soon">Soon</span>
+      <div class="portfolio-content">
+        <div class="portfolio-tag">Real Estate</div>
+        <div class="portfolio-name">Property Listings Platform</div>
+        <div class="portfolio-desc">Lead gen & showcase site</div>
+      </div>
+    </div>
+    <div class="portfolio-item">
+      <div class="portfolio-bg">🎬</div>
+      <span class="coming-soon">Soon</span>
+      <div class="portfolio-content">
+        <div class="portfolio-tag">Editing</div>
+        <div class="portfolio-name">Brand Content Reel</div>
+        <div class="portfolio-desc">Short-form video production</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="brands">
+  <div class="section-label">Our Ecosystem</div>
+  <h2 class="section-title">The <span>Brands</span></h2>
+  <div class="brands-grid">
+    <div class="brand-card">
+      <div class="brand-tag">Creative &amp; Digital</div>
+      <div class="brand-logo">ZYLOXIR<span>CULT</span></div>
+      <p class="brand-desc">The creative and digital arm of Zyloxir. Handling real estate digital presence, social media marketing, website development, video editing, and full-scale digital growth strategies.</p>
+      <div class="brand-services">
+        <span>Websites</span><span>SMMA</span><span>Real Estate</span><span>Editing</span><span>Digital</span>
+      </div>
+      <div class="brand-cta">Explore Zyloxircult →</div>
+    </div>
+    <div class="brand-card">
+      <div class="brand-tag">Commerce &amp; Products</div>
+      <div class="brand-logo">ZYLOXIR<span>CART</span></div>
+      <p class="brand-desc">The commerce engine of Zyloxir. Specialising in ecommerce stores, dropshipping operations, and curated imported products sourced globally and sold locally.</p>
+      <div class="brand-services">
+        <span>Ecommerce</span><span>Dropshipping</span><span>Imports</span><span>Selling</span>
+      </div>
+      <div class="brand-cta">Explore Zyloxircart →</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-label">Get In Touch</div>
+  <h2 class="section-title">Start a <span>Project</span></h2>
+  <div class="contact-layout">
+    <div class="contact-info">
+      <p>Have a project in mind? Want to work together? Drop a message and I'll get back to you as fast as possible. Let's build something great.</p>
+      <div class="contact-detail">
+        <div class="contact-item">
+          <span class="contact-item-icon">📧</span>
+          <div>
+            <div class="contact-item-label">Email</div>
+            <div class="contact-item-text"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b8c2c1d4d7c0d1cae7dbcdd4ccf8dfd5d9d1d496dbd7d5">[email&#160;protected]</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-icon">🌍</span>
+          <div>
+            <div class="contact-item-label">Location</div>
+            <div class="contact-item-text">India — Available Worldwide</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <span class="contact-item-icon">⚡</span>
+          <div>
+            <div class="contact-item-label">Response Time</div>
+            <div class="contact-item-text">Within 24 hours</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form" id="contactForm">
+      <div class="form-group">
+        <label class="form-label">Your Name</label>
+        <input type="text" class="form-input" placeholder="Enter your name" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Email Address</label>
+        <input type="email" class="form-input" placeholder="your@email.com" required/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Service Interested In</label>
+        <input type="text" class="form-input" placeholder="Website, SMMA, Editing..."/>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" placeholder="Tell me about your project..."></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Message →</button>
+      <div class="form-msg" id="formMsg">✓ Message sent! I'll be in touch soon.</div>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <a href="#hero" class="footer-logo">ZYL<span>O</span>XIR</a>
+  <div class="footer-copy">© 2025 Zyloxir. All rights reserved.</div>
+  <div class="footer-links">
+    <a href="#services">Services</a>
+    <a href="#brands">Brands</a>
+    <a href="#portfolio">Work</a>
+    <a href="#contact">Contact</a>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  document.getElementById('contactForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const msg = document.getElementById('formMsg');
+    msg.style.display = 'block';
+    e.target.reset();
+    setTimeout(() => msg.style.display = 'none', 4000);
+  });
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.for
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Syne:wght@300;400;600&display=swap" rel="stylesheet"/>
 <style>
   :root {
